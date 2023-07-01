@@ -8,7 +8,7 @@ Before using subseeker, ensure that you have the following tools installed on yo
 - `findomain`
 - `assetfinder`
 - `amass`
-- 
+
 ## Usage
 ```
 ./subseeker.sh <DOMAIN>
