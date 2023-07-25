@@ -24,7 +24,7 @@ if [ -f "$OLD_OUTPUT_FILE" ]; then
 fi
 
 # Run subfinder and append output to the output file
-subfinder -d "$DOMAIN" -silent >> "$OUTPUT_FILE"
+subfinder -all -d "$DOMAIN" -silent >> "$OUTPUT_FILE"
 
 # Run findomain and append output to the output file
 findomain -t "$DOMAIN" -u "$OUTPUT_FILE" --quiet >/dev/null
