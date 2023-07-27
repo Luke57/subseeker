@@ -14,26 +14,22 @@ fi
 # Get the target domain from the command-line argument
 DOMAIN=$1
 
-# Define the output file names
+# Define the output file name
 OUTPUT_FILE="$DOMAIN-subs.txt"
-OLD_OUTPUT_FILE="$DOMAIN-subs.old.txt"
-
-# Remove the old output file if it exists
-if [ -f "$OLD_OUTPUT_FILE" ]; then
-    rm "$OLD_OUTPUT_FILE"
-fi
 
 # Run subfinder and append output to the output file
 subfinder -all -d "$DOMAIN" -silent >> "$OUTPUT_FILE"
 
 # Run findomain and append output to the output file
-findomain -t "$DOMAIN" -u "$OUTPUT_FILE" --quiet >/dev/null
+findomain -t "$DOMAIN" --quiet >> "$OUTPUT_FILE"
 
 # Run assetfinder and append output to the output file
 assetfinder --subs-only "$DOMAIN" >> "$OUTPUT_FILE"
 
 # Run amass and append output to the output file
-amass enum -silent -passive -d "$DOMAIN" -o "$OUTPUT_FILE"
+# Amass is currently a bit broken so very dirty workaround.
+amass enum -silent -passive -d "$DOMAIN"
+amass db -names -d "$DOMAIN" >> "$OUTPUT_FILE"
 
 # Remove duplicate entries from the output file
 sort -u -o "$OUTPUT_FILE" "$OUTPUT_FILE"
