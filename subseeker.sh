@@ -34,6 +34,15 @@ amass db -names -d "$DOMAIN" >> "$OUTPUT_FILE"
 # Remove duplicate entries from the output file
 sort -u -o "$OUTPUT_FILE" "$OUTPUT_FILE"
 
+# Filter out lines containing '@' or starting with '_'
+grep -v '@' "$OUTPUT_FILE" | grep -v '^_' > "$OUTPUT_FILE-filtered.txt"
+
+# Replace the original output file with the filtered content
+mv "$OUTPUT_FILE-filtered.txt" "$OUTPUT_FILE"
+
+# Remove any leading whitespace or blank lines
+sed -i '/^[[:space:]]*$/d' "$OUTPUT_FILE"
+
 echo ""
 echo "Subdomain enumeration on $DOMAIN completed. Results saved in $OUTPUT_FILE."
 
