@@ -22,9 +22,9 @@ OUTPUT_FILE="$DOMAIN-subs.txt"
 
 # Run Shuffledns and append output to the output file
 rm /home/kali/resolvers.txt
-wget -q https://raw.githubusercontent.com/proabiral/Fresh-Resolvers/master/resolvers.txt -P /home/kali/
+wget -q "https://raw.githubusercontent.com/proabiral/Fresh-Resolvers/master/resolvers.txt" -P "/home/$USER/"
 printf "Running Shuffledns..\n"
-shuffledns -d "$DOMAIN" -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt -r ~/resolvers.txt -silent >> "$OUTPUT_FILE"
+shuffledns -d "$DOMAIN" -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-110000.txt -r /home/$USER/resolvers.txt -silent >> "$OUTPUT_FILE"
 
 # Run subfinder and append output to the output file
 printf "Running Subfinder..\n"
